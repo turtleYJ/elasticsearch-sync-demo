@@ -1,6 +1,7 @@
 package com.y1.elsdemo.controller;
 
 import com.y1.elsdemo.model.MailDocument;
+import com.y1.elsdemo.service.ElasticService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
