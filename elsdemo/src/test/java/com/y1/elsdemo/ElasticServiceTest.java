@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,7 +33,9 @@ public class ElasticServiceTest {
                 "you@sample.com",
                 "본문 컨텐츠",
                 "inbox",
-                LocalDateTime.now().withNano(0)
+                // Spring Data Elasticsearch 공식 문서
+                // Supported Java types for date fields are: java.util.Date, java.util.Calendar, java.time.Instant, java.time.ZonedDateTime. LocalDateTime is not supported.
+                Instant.now()
         );
 
         elasticService.save(mail);
@@ -45,15 +48,15 @@ public class ElasticServiceTest {
     @Test
     void testSearchByKeyword() {
         // given
-        MailDocument mail = new MailDocument(
+        elasticService.save(new MailDocument(
                 "test002",
                 "보고서 TDD",
                 "me@sample.com",
                 "you@sample.com",
                 "내용: TDD 연습",
                 "inbox",
-                LocalDateTime.now()
-        );
+                Instant.now()
+        ));
 
         // when
         List<MailDocument> result = elasticService.search("TDD");

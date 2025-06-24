@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -23,7 +24,6 @@ public class MailDocument {
     private String receiver;
     private String content;
     private String folder;
-    @Field(type = FieldType.Date, format = DateFormat.date_time)
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime timestamp;
+    @Field(type = FieldType.Date)
+    private Instant timestamp;
 }
