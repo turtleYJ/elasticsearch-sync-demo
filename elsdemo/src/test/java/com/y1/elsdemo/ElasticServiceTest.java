@@ -32,7 +32,7 @@ public class ElasticServiceTest {
                 "you@sample.com",
                 "본문 컨텐츠",
                 "inbox",
-                LocalDateTime.now()
+                LocalDateTime.now().withNano(0)
         );
 
         elasticService.save(mail);
