@@ -1,14 +1,12 @@
-package com.y1.elsdemo;
+package com.y1.elsdemo.service;
 
 import com.y1.elsdemo.model.MailDocument;
-import com.y1.elsdemo.service.ElasticService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
