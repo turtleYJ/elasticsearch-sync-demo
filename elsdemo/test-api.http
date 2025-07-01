@@ -1,0 +1,31 @@
+### 메일 저장 (동기)
+POST http://localhost:8080/api/mail
+Content-Type: application/json
+
+{
+  "subject": "테스트 메일 제목",
+  "sender": "sender@example.com",
+  "receiver": "receiver@example.com",
+  "content": "이것은 테스트 메일 내용입니다.",
+  "folder": "INBOX",
+  "timestamp": "2024-01-15T10:30:00Z"
+}
+
+### 메일 저장 (비동기 - MQ)
+POST http://localhost:8080/api/mail/mq
+Content-Type: application/json
+
+{
+  "subject": "MQ 테스트 메일 제목",
+  "sender": "mq-sender@example.com",
+  "receiver": "mq-receiver@example.com",
+  "content": "이것은 MQ를 통한 테스트 메일 내용입니다.",
+  "folder": "INBOX",
+  "timestamp": "2024-01-15T11:00:00Z"
+}
+
+### 메일 검색
+GET http://localhost:8080/api/mail/search?q=테스트
+
+### 메일 단건 조회 (ID는 실제 저장된 메일의 ID로 변경해야 함)
+GET http://localhost:8080/api/mail/your-mail-id-here 

@@ -1,20 +1,19 @@
 package com.y1.elsdemo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
+import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "mails", writeTypeHint = WriteTypeHint.FALSE)
-public class MailDocument {
+public class MailDocument implements Serializable {
 
     @Id
     private String id;
