@@ -63,4 +63,25 @@ public class ElasticServiceTest {
         assertThat(result).isNotEmpty();
         assertThat(result.stream().anyMatch(m -> m.getId().equals("test002"))).isTrue();
     }
+
+    @Test
+    void testDeleteById() {
+        // given
+        elasticService.save(new MailDocument(
+            "test003",
+            "삭제 테스트",
+            "me@sample.com",
+            "you@sample.com",
+            "삭제 테스트 내용",
+            "inbox",
+            Instant.now()
+        ));
+
+        // when
+        elasticService.deleteById("test003");
+
+        // then
+        MailDocument found = elasticService.findById("test003");
+        assertThat(found).isNull();
+    }
 }
