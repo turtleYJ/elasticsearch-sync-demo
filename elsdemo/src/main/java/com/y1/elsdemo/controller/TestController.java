@@ -8,6 +8,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -21,7 +23,7 @@ public class TestController {
 
     // 메일 저장 (동기)
     @PostMapping
-    public ResponseEntity<String> saveMail(@RequestBody MailDocument mail) {
+    public ResponseEntity<String> saveMail(@Valid @RequestBody MailDocument mail) {
         try {
             log.info("메일 저장 요청: {}", mail.getSubject());
             elasticService.save(mail);
@@ -35,7 +37,7 @@ public class TestController {
 
     // 메일 저장 (비동기 - MQ)
     @PostMapping("/mq")
-    public ResponseEntity<String> saveMailAsync(@RequestBody MailDocument mail) {
+    public ResponseEntity<String> saveMailAsync(@Valid @RequestBody MailDocument mail) {
         try {
             log.info("MQ 메일 저장 요청: {}", mail.getSubject());
             rabbitTemplate.convertAndSend("mail-queue", mail);
@@ -49,7 +51,7 @@ public class TestController {
 
     // 메일 검색 (제목, 본문 대상 키워드 검색)
     @GetMapping("/search")
-    public ResponseEntity<List<MailDocument>> searchMail(@RequestParam("q") String keyword) {
+    public ResponseEntity<List<MailDocument>> searchMail(@RequestParam("q") @NotBlank String keyword) {
         try {
             log.info("메일 검색 요청: {}", keyword);
             List<MailDocument> results = elasticService.search(keyword);
